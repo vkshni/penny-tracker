@@ -1,6 +1,7 @@
 # Modules
 from pathlib import Path
 import csv
+from entity import Expense
 
 BASE_DIR = Path(__file__).parent
 
@@ -17,7 +18,8 @@ class CSVFile:
         path = BASE_DIR / file_name
         if not path.exists():
             with open(path, "x") as f:
-                pass
+                writer = csv.writer(f)
+                writer.writerow(["id","amount","category","date","note"])
         return path
     
     def read_all(self):
@@ -50,9 +52,17 @@ class ExpenseDB:
 
     def get_all_expenses(self, skip_header = True):
 
-        expenses = self.csv_handler.read_all()
+        rows = self.csv_handler.read_all()
         if skip_header:
-            expenses = expenses[1:]
+            rows = rows[1:]
+        
+        expenses = [Expense.from_dict({
+            "id": r[0],
+            "amount": r[1],
+            "category": r[2],
+            "date": r[3],
+            "note": r[4]
+        }) for r in rows]
         return expenses
     
     def add_expense(self, expense_row: list):
