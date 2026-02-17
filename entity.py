@@ -1,9 +1,10 @@
-
+from datetime import datetime
+from uuid import uuid4
 
 class Expense:
 
-    def __init__(self, id, amount, category, date, note = ""):
-        self.id = id
+    def __init__(self, amount, category, date, note = "", id=None):
+        self.id = str(id) if id else str(uuid4())
         self.amount = float(amount)
         self.category = category.lower()
         self.date = date
@@ -35,16 +36,17 @@ class Expense:
 
         return expense_row
     
-    def from_dict(self, expense_dict):
+    @classmethod
+    def from_dict(cls, expense_dict):
 
-        id = expense_dict[id]
-        amount = expense_dict[amount]
-        category = expense_dict[category]
-        date= expense_dict[date]
-        note = expense_dict[note]
-
-        obj = Expense(id, amount, category, date, note)
-        return obj
+        return cls(
+            expense_dict["id"],
+            expense_dict["amount"],
+            expense_dict["category"],
+            expense_dict["date"],
+            expense_dict["note"]
+        )
+        
 
 
     def validate_fields(self):
@@ -52,11 +54,13 @@ class Expense:
         if not self.id :
             raise ValueError("Empty Field")
         
-        if not self.amount or self.amount <=0:
+        if self.amount <=0:
             raise ValueError("Amount should be greater than 0")
         
-        if not self.category or not self.category.isalpha():
-            raise ValueError("Category name should be a single string")
+        if not self.category.strip():
+            raise ValueError("Category cannot be empty")
 
-        # if not self.date or not self.date.isalpha():
-        #     raise ValueError("Data should be in format DD-MM-YYYY")
+        try:
+            datetime.strptime(self.date, "%d-%m-%Y")
+        except ValueError:
+            raise ValueError(f"Date must be in DD-MM-YYYY format, got: {self.date}")
