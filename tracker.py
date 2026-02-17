@@ -1,6 +1,4 @@
 # Modules
-from uuid import uuid4
-
 from entity import Expense
 from db import ExpenseDB
 
@@ -15,8 +13,7 @@ class ExpenseTracker:
 
     def add_expense(self, amount, category, date, note=""):
         
-        expense_id = uuid4()
-        expense_obj = Expense(expense_id, amount, category, date, note)
+        expense_obj = Expense(amount, category, date, note)
 
         expense_row = expense_obj.to_list()
         self.expensedb.add_expense(expense_row)
