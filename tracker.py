@@ -24,8 +24,10 @@ class ExpenseTracker:
     def view_all(self):
 
         expenses = self.expensedb.get_all_expenses()
-        expenses = [e.to_dict() for e in expenses]
-        return expenses
+        numbered_expenses = [
+            [idx+1] + e.to_list()
+            for idx, e in enumerate(expenses)]
+        return numbered_expenses
     
     def filter_by_category(self, category: str):
 
@@ -82,3 +84,44 @@ class ExpenseTracker:
             "total": total,
             "by_category": by_category
         }
+    
+    def get_expense_by_display_id(self, display_id):
+
+        expenses = self.expensedb.get_all_expenses()
+
+        if not (1 <= display_id <= len(expenses)):
+            return False
+        
+        expense = expenses[display_id-1]
+        return expense
+    
+    def delete_expense(self, display_id):
+
+        expense = self.get_expense_by_display_id(display_id)
+
+        if not expense:
+            return False
+
+        self.expensedb.delete_expense(expense.id)
+        return True
+
+    def edit_expense(self, display_id, amount= None, category= None, date= None, note = None):
+
+        expense = self.get_expense_by_display_id(display_id)
+
+        if not expense:
+            return False
+
+        if amount is not None:
+            expense.amount = float(amount)
+        if category is not None:
+            expense.category = category.lower()
+        if date is not None:
+            expense.date = date
+        if note is not None:
+            expense.note = note
+
+        expense.validate_fields()
+
+        self.expensedb.update_expense(expense)
+        return True
