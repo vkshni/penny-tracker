@@ -62,12 +62,47 @@ class ExpenseDB:
             "category": r[2],
             "date": r[3],
             "note": r[4]
-        }) for r in rows]
+        }) for r in rows if r and len(r) == 5]
         return expenses
     
     def add_expense(self, expense_row: list):
 
         self.csv_handler.append_row(expense_row)
         return True
+
+    def delete_expense(self, expense_id: str):
+
+        rows = self.csv_handler.read_all()
+
+        filtered = [r for r in rows if r[0] != expense_id]
+
+        if len(rows) == len(filtered):
+            return False
+        
+        self.csv_handler.write_all(filtered)
+        return True
+    
+    def update_expense(self, expense: Expense):
+
+        rows = self.csv_handler.read_all()
+        header = rows[0]
+        data_rows = rows[1:]
+
+        updated = False
+
+        for i, r in enumerate(data_rows):
+            if r[0] == expense.id:
+                data_rows[i] = expense.to_list()
+                updated = True
+                break
+
+        if not updated:
+            return False
+        
+        self.csv_handler.write_all([header]+data_rows)
+        return True
+
+
+
     
     
