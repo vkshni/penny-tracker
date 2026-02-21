@@ -2,6 +2,7 @@
 from pathlib import Path
 import csv
 from entity import Expense
+from exceptions import *
 
 BASE_DIR = Path(__file__).parent
 
@@ -77,6 +78,7 @@ class ExpenseDB:
         filtered = [r for r in rows if r[0] != expense_id]
 
         if len(rows) == len(filtered):
+            raise ExpenseNotFoundError("Expense doesn't exist: not found")
             return False
         
         self.csv_handler.write_all(filtered)
@@ -97,6 +99,7 @@ class ExpenseDB:
                 break
 
         if not updated:
+            raise ExpenseNotFoundError("Expense doesn't exist: not found")
             return False
         
         self.csv_handler.write_all([header]+data_rows)

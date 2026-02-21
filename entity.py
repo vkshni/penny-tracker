@@ -1,6 +1,11 @@
 from datetime import datetime
 from uuid import uuid4
 
+from exceptions import *
+from logger import setup_logger
+
+logger = setup_logger()
+
 class Expense:
 
     def __init__(self, amount, category, date, note = "", id=None):
@@ -40,11 +45,11 @@ class Expense:
     def from_dict(cls, expense_dict):
 
         return cls(
-            expense_dict["id"],
-            expense_dict["amount"],
-            expense_dict["category"],
-            expense_dict["date"],
-            expense_dict["note"]
+            amount = expense_dict["amount"],
+            category = expense_dict["category"],
+            date = expense_dict["date"],
+            note = expense_dict["note"],
+            id = expense_dict["id"]
         )
         
 
@@ -52,15 +57,23 @@ class Expense:
     def validate_fields(self):
 
         if not self.id :
-            raise ValueError("Empty Field")
+            msg = f"Empty expense ID"
+            logger.error(msg)
+            raise EmptyFieldError("Empty Field")
         
         if self.amount <=0:
-            raise ValueError("Amount should be greater than 0")
+            msg = f"Invalid amount '{self.amount}'"
+            logger.error(msg)
+            raise InvalidAmountError("Amount should be greater than 0")
         
         if not self.category.strip():
-            raise ValueError("Category cannot be empty")
+            msg = f"Empty expense ID"
+            logger.error(msg)
+            raise EmptyFieldError("Category cannot be empty")
 
         try:
             datetime.strptime(self.date, "%d-%m-%Y")
         except ValueError:
-            raise ValueError(f"Date must be in DD-MM-YYYY format, got: {self.date}")
+            msg = f"Invalid date format, {self.date}"
+            logger.error(msg)
+            raise InvalidDateError(f"Date must be in DD-MM-YYYY format, got: {self.date}")
