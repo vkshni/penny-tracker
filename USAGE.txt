@@ -1,0 +1,29 @@
+PENNY TRACKER - QUICK REFERENCE
+================================
+
+ADD EXPENSE:
+  penny add --amount <amount> --category <category> --date DD-MM-YYYY [--note "text"]
+  Example: penny add --amount 50 --category food --date 20-02-2026 --note "lunch"
+
+VIEW ALL:
+  penny view
+
+FILTER:
+  By category:    penny filter --category <category>
+  By date range:  penny filter --from DD-MM-YYYY --to DD-MM-YYYY
+
+SUMMARY:
+  penny summary --month <1-12> --year <YYYY>
+  Example: penny summary --month 2 --year 2026
+
+EDIT:
+  penny edit <display_id> [--amount <amount>] [--category <category>] [--date DD-MM-YYYY] [--note "text"]
+  Example: penny edit 1 --amount 75
+
+DELETE:
+  penny delete <display_id>
+  Example: penny delete 2
+
+HELP:
+  penny --help
+  penny <command> --help
