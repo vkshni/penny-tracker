@@ -1,14 +1,54 @@
+"""
+Expense Entity Module
+
+This module defines the Expense class which represents a single expense record
+with validation logic for all fields.
+"""
+# Modules
 from datetime import datetime
 from uuid import uuid4
 
 from exceptions import *
 from logger import setup_logger
 
+# Logger setup
 logger = setup_logger()
 
 class Expense:
+    """
+    Represents a single expense entry.
+    
+    Attributes:
+        id (str): Unique identifier (UUID4) for the expense
+        amount (float): Expense amount (must be positive)
+        category (str): Expense category (lowercase)
+        date (str): Date in DD-MM-YYYY format
+        note (str): Optional note/description
+    
+    Raises:
+        InvalidAmountError: If amount is not positive
+        EmptyFieldError: If required fields are empty
+        InvalidDateError: If date format is invalid
+    
+    Example:
+        >>> expense = Expense(50.0, "food", "20-02-2026", "lunch")
+        >>> print(expense.amount)
+        50.0
+    """
 
-    def __init__(self, amount, category, date, note = "", id=None):
+
+    def __init__(self, amount, category, date, note = "", id=None) -> None:
+        """
+        Initialize a new Expense.
+        
+        Args:
+            amount: Expense amount (converted to float)
+            category: Category name (converted to lowercase)
+            date: Date string in DD-MM-YYYY format
+            note: Optional description (default: "")
+            id: Optional UUID (generates new one if None)
+        """
+
         self.id = str(id) if id else str(uuid4())
         self.amount = float(amount)
         self.category = category.lower()
@@ -17,7 +57,13 @@ class Expense:
 
         self.validate_fields()
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
+        """
+        Convert expense to dictionary.
+        
+        Returns:
+            dict: Expense data as dictionary with keys: id, amount, category, date, note
+        """
         
         expense_dict = {
             "id": self.id,
@@ -29,7 +75,13 @@ class Expense:
 
         return expense_dict
     
-    def to_list(self):
+    def to_list(self) -> list:
+        """
+        Convert expense to list for CSV storage.
+        
+        Returns:
+            list: Expense data as [id, amount, category, date, note]
+        """
 
         expense_row = [
             self.id,
@@ -42,7 +94,16 @@ class Expense:
         return expense_row
     
     @classmethod
-    def from_dict(cls, expense_dict):
+    def from_dict(cls, expense_dict: dict) :
+        """
+        Create Expense object from dictionary.
+        
+        Args:
+            expense_dict (dict): Dictionary with keys: id, amount, category, date, note
+        
+        Returns:
+            Expense: New Expense instance
+        """
 
         return cls(
             amount = expense_dict["amount"],
@@ -55,6 +116,14 @@ class Expense:
 
 
     def validate_fields(self):
+        """
+        Validate all expense fields.
+        
+        Raises:
+            EmptyFieldError: If ID or category is empty
+            InvalidAmountError: If amount is not positive
+            InvalidDateError: If date format is invalid (not DD-MM-YYYY)
+        """
 
         if not self.id :
             msg = f"Empty expense ID"
