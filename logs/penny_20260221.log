@@ -1,0 +1,38 @@
+2026-02-21 10:37:50 | INFO | View expense data
+2026-02-21 10:38:12 | INFO | Filtered by category 'food'
+2026-02-21 10:39:19 | INFO | Filtered by category 'food'
+2026-02-21 10:40:41 | INFO | View expense data
+2026-02-21 10:42:06 | ERROR | Invalid amount '-20.0'
+2026-02-21 10:43:07 | INFO | View expense data
+2026-02-21 18:21:27 | INFO | Filtered by category 'food'
+2026-02-21 18:23:04 | INFO | Filtered by category 'food'
+2026-02-21 18:25:58 | INFO | Filtered by category 'food'
+2026-02-21 18:26:48 | INFO | Filtered by category 'food'
+2026-02-21 18:29:31 | INFO | Filtered by category 'food'
+2026-02-21 18:31:37 | INFO | Filtered by category 'food'
+2026-02-21 18:32:05 | INFO | Filtered by category 'food'
+2026-02-21 18:32:27 | INFO | View expense data
+2026-02-21 18:33:48 | INFO | Filtered by category 'food'
+2026-02-21 18:34:28 | INFO | Added Expense with amount '100.0' category 'food' date '21-02-2026' and note 'coffee'
+2026-02-21 18:34:58 | INFO | Filtered data by date range '2026-02-10 00:00:00' and '2026-02-20 00:00:00'
+2026-02-21 18:36:20 | INFO | Filtered by category 'food'
+2026-02-21 18:37:53 | INFO | Filtered by category 'food'
+2026-02-21 18:38:13 | INFO | Filtered by category 'food'
+2026-02-21 18:38:28 | INFO | View expense data
+2026-02-21 18:39:13 | INFO | Filtered data by date range '2026-02-10 00:00:00' and '2026-02-20 00:00:00'
+2026-02-21 18:40:26 | INFO | Filtered by category 'food'
+2026-02-21 18:40:48 | ERROR | Invalid amount '-20.0'
+2026-02-21 18:41:09 | INFO | Filtered data by date range '2026-02-10 00:00:00' and '2026-02-20 00:00:00'
+2026-02-21 18:41:35 | INFO | View expense data
+2026-02-21 18:41:48 | INFO | Display ID '4' choosen
+2026-02-21 18:41:48 | INFO | Expense with display id '4' edited
+2026-02-21 18:41:52 | INFO | View expense data
+2026-02-21 18:42:07 | INFO | Display ID '5' choosen
+2026-02-21 18:42:11 | INFO | Display ID '5' choosen
+2026-02-21 18:42:11 | INFO | Expense with display ID '5' deleted
+2026-02-21 18:42:20 | INFO | View expense data
+2026-02-21 20:12:03 | INFO | View expense data
+2026-02-21 20:12:15 | INFO | Filtered by category 'transport'
+2026-02-21 20:12:23 | INFO | Filtered by category 'food'
+2026-02-21 20:12:30 | INFO | Filtered by category 'student'
+2026-02-21 20:12:50 | INFO | View expense data
