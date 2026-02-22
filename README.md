@@ -101,9 +101,11 @@ penny-tracker/
 ├── tracker.py         # Core business logic
 ├── entity.py          # Expense entity and validation
 ├── db.py              # CSV database operations
+├── logger.py          # Loggings
 ├── exceptions.py      # Custom exception classes
 ├── expenses.csv       # Data storage (created automatically)
 ├── penny.bat          # Windows batch file
+├── USAGE.txt          # Usage explained
 └── README.md          # Documentation
 ```
 
